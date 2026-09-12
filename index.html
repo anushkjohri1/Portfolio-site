@@ -1085,9 +1085,9 @@ footer a:hover{
 @keyframes socialCardReturn{from{opacity:0;transform:translate3d(0,40px,0) scale(.88) rotate(-5deg)}to{opacity:1;transform:translate3d(var(--stack-y),0,0) scale(var(--stack-scale)) rotate(var(--stack-rotate))}}
 @media(max-width:800px){
   .social-viewer{display:block;overflow:auto;padding:76px 14px 30px}
-  .social-viewer-inner{display:flex;flex-direction:column-reverse;gap:24px;align-items:stretch}
+  .social-viewer-inner{display:flex;flex-direction:column;gap:24px;align-items:stretch}
   .social-deck-wrap{width:min(100%,460px)}
-  .social-deck{max-height:none}
+  .social-deck{height:min(52vh,520px);aspect-ratio:auto}
   .social-viewer-copy{text-align:center}
   .social-viewer-copy h2{font-size:42px;margin-bottom:22px}
   .social-summary{margin-left:auto;margin-right:auto}
@@ -2936,7 +2936,7 @@ if(workSection && brandsSection && nextSection){
 
   function renderStack(){
     const account=accounts[current];
-    accountElement.textContent=account.name+' '+account.handle;
+    accountElement.textContent=account.handle;
     summaryElement.textContent=account.summary;
     metricsElement.innerHTML='<div class="social-metric"><strong>'+account.followers+'</strong>followers</div><div class="social-metric"><strong>'+account.engagement+'</strong>engagement created</div>';
     cards.forEach((card,index)=>{
