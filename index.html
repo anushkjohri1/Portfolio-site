@@ -1062,6 +1062,38 @@ footer a:hover{
 .creative-viewer-button:hover,.creative-viewer-close:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
 .creative-viewer-count{color:var(--fog);font:700 10px ui-monospace}
 .creative-viewer-close{position:absolute;top:25px;right:28px;padding:10px 14px}
+.social-viewer{position:fixed;inset:0;z-index:161;display:grid;place-items:center;padding:28px;background:rgba(42,0,9,.96);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.social-viewer.show{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
+.social-viewer-inner{width:min(100%,1260px);display:grid;grid-template-columns:minmax(260px,1fr) minmax(460px,640px);gap:70px;align-items:center}
+.social-viewer-copy{align-self:center}
+.social-viewer-copy h2{margin:12px 0 28px;font:900 clamp(42px,6vw,78px)/.86 "Cabinet Grotesk";letter-spacing:-.05em;text-transform:uppercase}
+.social-account{font:900 clamp(22px,3vw,38px)/.95 "Cabinet Grotesk";text-transform:uppercase}
+.social-summary{max-width:360px;margin:14px 0 22px;color:var(--fog);font-size:15px;line-height:1.5}
+.social-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.social-metric{border:1px solid var(--line);padding:10px 12px;color:var(--white);font:700 10px/1.25 "Cabinet Grotesk";letter-spacing:.12em;text-transform:uppercase}
+.social-metric strong{display:block;color:var(--acid);font-size:18px;letter-spacing:0;margin-bottom:4px}
+.social-deck-wrap{position:relative;width:100%;justify-self:center}
+.social-deck{position:relative;width:100%;aspect-ratio:var(--social-card-ratio,.8);max-height:82vh;transition:aspect-ratio .5s cubic-bezier(.2,.8,.2,1)}
+.social-card{position:absolute;inset:0;overflow:hidden;padding:0;border:1px solid rgba(242,241,237,.4);background:var(--surface);box-shadow:0 24px 60px rgba(0,0,0,.35);transform:translate3d(0,var(--stack-y),0) scale(var(--stack-scale)) rotate(var(--stack-rotate));transform-origin:50% 100%;transition:transform .52s cubic-bezier(.2,.8,.2,1),opacity .38s ease;touch-action:none;user-select:none}
+.social-card img{display:block;width:100%;height:100%;object-fit:contain;background:#260009;pointer-events:none}
+.social-card:nth-child(1){z-index:3;--stack-y:0px;--stack-scale:1;--stack-rotate:0deg}
+.social-card:nth-child(2){z-index:2;--stack-y:14px;--stack-scale:.95;--stack-rotate:3deg}
+.social-card:nth-child(3){z-index:1;--stack-y:26px;--stack-scale:.9;--stack-rotate:-4deg}
+.social-card.is-dragging{transition:none}
+.social-card.is-leaving{opacity:0;transform:translate3d(var(--leave-x),var(--leave-y),0) rotate(var(--leave-rotate)) scale(.98)}
+.social-card.is-returning{animation:socialCardReturn .52s cubic-bezier(.2,.8,.2,1) both}
+@keyframes socialCardReturn{from{opacity:0;transform:translate3d(0,40px,0) scale(.88) rotate(-5deg)}to{opacity:1;transform:translate3d(var(--stack-y),0,0) scale(var(--stack-scale)) rotate(var(--stack-rotate))}}
+@media(max-width:800px){
+  .social-viewer{display:block;overflow:auto;padding:76px 14px 30px}
+  .social-viewer-inner{display:flex;flex-direction:column-reverse;gap:24px;align-items:stretch}
+  .social-deck-wrap{width:min(100%,460px)}
+  .social-deck{max-height:none}
+  .social-viewer-copy{text-align:center}
+  .social-viewer-copy h2{font-size:42px;margin-bottom:22px}
+  .social-summary{margin-left:auto;margin-right:auto}
+  .social-metrics{justify-content:center}
+  .social-viewer .creative-viewer-controls{justify-content:center}
+}
 @media(max-width:800px){
   .creative-trigger{cursor:pointer}
   .creative-viewer{display:block;overflow:auto;padding:76px 14px 30px}
@@ -1904,7 +1936,7 @@ footer a:hover{
     <div class="chips">
 
       <button class="chip creative-trigger" id="creativeTrigger" type="button" aria-haspopup="dialog" aria-controls="creativeViewer">Creative</button>
-      <span class="chip">Social</span>
+      <button class="chip creative-trigger" id="socialTrigger" type="button" aria-haspopup="dialog" aria-controls="socialViewer">Social</button>
       <span class="chip">Content</span>
       <span class="chip">Brand Strategy</span>
       <span class="chip">Culture</span>
@@ -1935,6 +1967,31 @@ footer a:hover{
         <button class="creative-card" type="button" aria-label="Swipe creative"><img alt="Creative work 1" draggable="false"></button>
         <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 2" draggable="false"></button>
         <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 3" draggable="false"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="social-viewer" id="socialViewer" role="dialog" aria-modal="true" aria-labelledby="socialViewerTitle" aria-hidden="true">
+  <button class="creative-viewer-close" id="socialViewerClose" type="button">Close ×</button>
+  <div class="social-viewer-inner">
+    <div class="social-viewer-copy">
+      <div class="label" id="socialViewerKicker">Social archive</div>
+      <h2 id="socialViewerTitle">Pages worth<br><span class="acid">stopping for.</span></h2>
+      <div class="social-account" id="socialAccount"></div>
+      <p class="social-summary" id="socialSummary"></p>
+      <div class="social-metrics" id="socialMetrics"></div>
+      <div class="creative-viewer-controls">
+        <button class="creative-viewer-button" id="socialPrev" type="button" aria-label="Previous social account">←</button>
+        <span class="creative-viewer-count" id="socialCount">01 / 06</span>
+        <button class="creative-viewer-button" id="socialNext" type="button" aria-label="Next social account">→</button>
+      </div>
+    </div>
+    <div class="social-deck-wrap">
+      <div class="social-deck" id="socialDeck">
+        <button class="social-card" type="button" aria-label="Swipe social account"><img alt="Social account work 1" draggable="false"></button>
+        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 2" draggable="false"></button>
+        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 3" draggable="false"></button>
       </div>
     </div>
   </div>
@@ -2806,6 +2863,180 @@ if(workSection && brandsSection && nextSection){
   renderStack();
 })();
 
+/* SOCIAL ACCOUNT ARCHIVE */
+
+(function(){
+  const trigger=document.getElementById('socialTrigger');
+  const viewer=document.getElementById('socialViewer');
+  const close=document.getElementById('socialViewerClose');
+  const deckElement=document.getElementById('socialDeck');
+  const accountElement=document.getElementById('socialAccount');
+  const summaryElement=document.getElementById('socialSummary');
+  const metricsElement=document.getElementById('socialMetrics');
+  const count=document.getElementById('socialCount');
+  const nextButton=document.getElementById('socialNext');
+  const previousButton=document.getElementById('socialPrev');
+  if(!trigger||!viewer||!deckElement)return;
+
+  const accounts=[
+    {
+      name:'Pet Fed India',
+      handle:'@petfedindia',
+      followers:'74.6K',
+      engagement:'23K+ attendees',
+      summary:'Built an event-first Instagram engine where every post moved people from scroll to festival gate.',
+      image:'Screenshot_2026-09-12-23-44-29-75_1c337646f29875672b5a61192b9010f9.jpg'
+    },
+    {
+      name:"Benny's Bowl",
+      handle:'@bennysbowl',
+      followers:'17.9K',
+      engagement:'Product-led saves',
+      summary:'Created full-funnel campaigns that drove brand discovery, consideration and conversion, increasing sales while strengthening brand reputation.',
+      image:'Screenshot_2026-09-12-23-44-43-08_1c337646f29875672b5a61192b9010f9.jpg'
+    },
+    {
+      name:'Comic Con India',
+      handle:'@comicconindia',
+      followers:'232K',
+      engagement:'Fandom + UGC',
+      summary:'Made the community the content engine, using fandom, announcements and live-event energy to keep the feed moving.',
+      image:'Screenshot_2026-09-12-23-45-00-47_1c337646f29875672b5a61192b9010f9.jpg'
+    },
+    {
+      name:'Sillycorns',
+      handle:'@sillycorns.media',
+      followers:'418K',
+      engagement:'Shareable reach',
+      summary:'Built an engaged, active follower base through content that encouraged comments and participation while increasing reach.',
+      image:'Screenshot_2026-09-12-23-45-23-29_1c337646f29875672b5a61192b9010f9.jpg'
+    },
+    {
+      name:'LimeRoad',
+      handle:'@limeroad',
+      followers:'971K',
+      engagement:'Daily discovery',
+      summary:'Created an active fashion community through relatable content, styling conversations and campaigns that encouraged people to participate and share.',
+      image:'Screenshot_2026-09-12-23-45-44-67_1c337646f29875672b5a61192b9010f9.jpg'
+    },
+    {
+      name:'The Zen Crystals',
+      handle:'@zenbytnc',
+      followers:'45.2K',
+      engagement:'+130% organic growth',
+      summary:'Built a repeatable repurposing system that turned one idea into a consistent stream of useful, saveable content.',
+      image:'Screenshot_2026-09-12-23-46-05-93_1c337646f29875672b5a61192b9010f9.jpg'
+    }
+  ].map(account=>({...account,image:'Social/'+account.image}));
+
+  const cards=[...deckElement.querySelectorAll('.social-card')];
+  let current=0;
+  let locked=false;
+  let previousOverflow='';
+
+  function renderStack(){
+    const account=accounts[current];
+    accountElement.textContent=account.name+' '+account.handle;
+    summaryElement.textContent=account.summary;
+    metricsElement.innerHTML='<div class="social-metric"><strong>'+account.followers+'</strong>followers</div><div class="social-metric"><strong>'+account.engagement+'</strong>engagement created</div>';
+    cards.forEach((card,index)=>{
+      const image=card.querySelector('img');
+      image.src=accounts[(current+index)%accounts.length].image;
+      image.alt=accounts[(current+index)%accounts.length].name+' Instagram work';
+      image.onload=setShape;
+      card.style.setProperty('--stack-y',index===0?'0px':index===1?'14px':'26px');
+      card.style.setProperty('--stack-scale',index===0?'1':index===1?'.95':'.9');
+      card.style.setProperty('--stack-rotate',index===0?'0deg':index===1?'3deg':'-4deg');
+      card.setAttribute('aria-hidden',index===0?'false':'true');
+      card.tabIndex=index===0?0:-1;
+    });
+    count.textContent=String(current+1).padStart(2,'0')+' / '+String(accounts.length).padStart(2,'0');
+  }
+
+  function setShape(){
+    const image=cards[0].querySelector('img');
+    if(image.naturalWidth&&image.naturalHeight)deckElement.style.setProperty('--social-card-ratio',image.naturalWidth+'/'+image.naturalHeight);
+  }
+
+  function move(direction){
+    if(locked)return;
+    locked=true;
+    const topCard=cards[0];
+    topCard.style.transform='';
+    topCard.style.setProperty('--leave-x',(direction*125)+'%');
+    topCard.style.setProperty('--leave-y',(direction<0?'8':'-8')+'px');
+    topCard.style.setProperty('--leave-rotate',(direction*14)+'deg');
+    topCard.classList.add('is-leaving');
+    setTimeout(()=>{
+      current=(current+(direction>0?1:-1)+accounts.length)%accounts.length;
+      renderStack();
+      topCard.classList.remove('is-leaving');
+      topCard.classList.add('is-returning');
+      setShape();
+      setTimeout(()=>topCard.classList.remove('is-returning'),520);
+      locked=false;
+    },390);
+  }
+
+  function open(){
+    renderStack();
+    viewer.classList.add('show');
+    viewer.setAttribute('aria-hidden','false');
+    previousOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    setShape();
+    close.focus();
+  }
+
+  function shut(){
+    viewer.classList.remove('show');
+    viewer.setAttribute('aria-hidden','true');
+    document.body.style.overflow=previousOverflow;
+    trigger.focus();
+  }
+
+  trigger.addEventListener('click',open);
+  close.addEventListener('click',shut);
+  nextButton.addEventListener('click',()=>move(1));
+  previousButton.addEventListener('click',()=>move(-1));
+  document.addEventListener('keydown',event=>{
+    if(!viewer.classList.contains('show'))return;
+    if(event.key==='Escape')shut();
+    if(event.key==='ArrowRight')move(1);
+    if(event.key==='ArrowLeft')move(-1);
+  });
+
+  let startX=0;
+  let startY=0;
+  let dragging=false;
+  const topCard=cards[0];
+  topCard.addEventListener('pointerdown',event=>{
+    if(locked||event.button!==0)return;
+    dragging=true;
+    startX=event.clientX;
+    startY=event.clientY;
+    topCard.setPointerCapture(event.pointerId);
+    topCard.classList.add('is-dragging');
+  });
+  topCard.addEventListener('pointermove',event=>{
+    if(!dragging)return;
+    const x=event.clientX-startX;
+    const y=event.clientY-startY;
+    topCard.style.transform='translate3d('+x+'px,'+y+'px,0) rotate('+(x*.045)+'deg)';
+  });
+  function endDrag(event){
+    if(!dragging)return;
+    dragging=false;
+    topCard.classList.remove('is-dragging');
+    const distance=event.clientX-startX;
+    if(Math.abs(distance)>75)move(distance>0?1:-1);
+    else topCard.style.transform='';
+  }
+  topCard.addEventListener('pointerup',endDrag);
+  topCard.addEventListener('pointercancel',endDrag);
+  renderStack();
+})();
+
 const projectData={
 
   petfed:{
@@ -2973,7 +3204,7 @@ function playLocalProjectVideo(){
   modalLocalVideo.play().catch(()=>{});
 }
 
-modalLocalVideo.addEventListener('loadeddata',playLocalProjectVideo);
+modalLocalVideo.addEventListener('canplay',playLocalProjectVideo);
 
 
 document.querySelectorAll('.work-item').forEach(el=>{
@@ -3008,8 +3239,10 @@ document.querySelectorAll('.work-item').forEach(el=>{
           : el.dataset.project==='limeroad'
             ? 'LimeRoad Gen Z fashion video'
             : 'Official Aftermovie, Delhi Comic Con 2022');
-      modalLocalVideo.currentTime=0;
-      playLocalProjectVideo();
+          if(modalLocalVideo.readyState>=3){
+            modalLocalVideo.currentTime=0;
+            playLocalProjectVideo();
+          }
     }else{
       modalLocalVideo.pause();
       modalLocalVideo.currentTime=0;
