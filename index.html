@@ -259,6 +259,10 @@ section{
   padding:105px 0
 }
 
+#work{
+  padding:75px 0
+}
+
 .grid12{
   display:grid;
   grid-template-columns:repeat(12,1fr);
@@ -751,6 +755,32 @@ footer a:hover{
   padding:80px 0
 }
 
+.modal-local-video-frame{
+  display:none;
+  width:100%;
+  aspect-ratio:16/9;
+  margin-bottom:42px;
+  border:1px solid var(--line);
+  background:#260009;
+  overflow:hidden
+}
+
+.modal-local-video-frame.show{display:block}
+
+.modal-local-video-frame.no-crop .modal-local-video{
+  height:100%;
+  transform:none;
+  object-fit:contain
+}
+
+.modal-local-video{
+  display:block;
+  width:100%;
+  height:150%;
+  transform:translateY(-20%);
+  object-fit:cover
+}
+
 .modal-close{
   position:fixed;
   right:28px;
@@ -1198,6 +1228,10 @@ footer a:hover{
 
   .section{
     padding:70px 0
+  }
+
+  #work{
+    padding:50px 0
   }
 
   .grid12{
@@ -2011,9 +2045,9 @@ footer a:hover{
   </article>
 
 
-  <!-- THE NOOBS COMPANY -->
+  <!-- ZEN CRYSTALS -->
 
-  <article class="work-item" data-project="noobs">
+  <article class="work-item" data-project="zen-crystals">
 
     <div class="num">
       03
@@ -2026,7 +2060,7 @@ footer a:hover{
         <div>
 
           <h3>
-            The Noobs Company
+            The Zen Crystals
           </h3>
 
           <div class="work-role">
@@ -2287,7 +2321,7 @@ footer a:hover{
       </span>
 
       <small>
-        Engineered at The Noobs Company. Not accidental.
+        Engineered at Zen Crystals. Not accidental.
       </small>
 
     </div>
@@ -2562,6 +2596,19 @@ footer a:hover{
 
   <div class="modal-inner">
 
+    <div class="modal-local-video-frame" id="modalLocalVideoFrame">
+      <video
+        class="modal-local-video"
+        id="modalLocalVideo"
+        autoplay
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="Official Aftermovie, Delhi Comic Con 2022">
+        <source id="modalLocalVideoSource" src="Official%20Aftermovie%20Delhi%20Comic%20Con%202022%20-%20Comic%20Con%20India%20(1080p,%20h264).mp4" type="video/mp4">
+      </video>
+    </div>
+
     <div class="modal-kicker" id="modalKicker"></div>
 
     <h2 id="modalTitle"></h2>
@@ -2618,6 +2665,15 @@ footer a:hover{
 
 
 <script>
+
+const workSection=document.getElementById('work');
+const brandsSection=document.querySelector('.brands')?.closest('section');
+const nextSection=workSection?.nextElementSibling;
+
+if(workSection && brandsSection && nextSection){
+  brandsSection.parentNode.insertBefore(workSection,brandsSection);
+  brandsSection.parentNode.insertBefore(brandsSection,nextSection);
+}
 
 (function(){
   const heading=document.querySelector('.about-typewriter');
@@ -2808,9 +2864,9 @@ const projectData={
   },
 
 
-  noobs:{
+  'zen-crystals':{
 
-    k:'03 · The Noobs Company',
+    k:'03 · Zen Crystals',
 
     t:'The repurposing engine.',
 
@@ -2896,6 +2952,29 @@ const modalResult=
 const modalExperience=
   document.getElementById('modalExperience');
 
+const modalLocalVideo=
+  document.getElementById('modalLocalVideo');
+
+const modalLocalVideoFrame=
+  document.getElementById('modalLocalVideoFrame');
+
+const modalLocalVideoSource=
+  document.getElementById('modalLocalVideoSource');
+
+const localProjectVideos={
+  comiccon:'Official%20Aftermovie%20Delhi%20Comic%20Con%202022%20-%20Comic%20Con%20India%20(1080p,%20h264).mp4',
+  petfed:'YTB_1789210380169.mp4',
+  limeroad:'vidssave.com%20Just%20Some%20Gen%20Z%20Fits%20Being%20the%20Moment%20720P.mp4'
+};
+
+function playLocalProjectVideo(){
+  modalLocalVideo.muted=false;
+  modalLocalVideo.volume=1;
+  modalLocalVideo.play().catch(()=>{});
+}
+
+modalLocalVideo.addEventListener('loadeddata',playLocalProjectVideo);
+
 
 document.querySelectorAll('.work-item').forEach(el=>{
 
@@ -2908,6 +2987,33 @@ document.querySelectorAll('.work-item').forEach(el=>{
     modalContext.textContent=d.c;
     modalPlay.textContent=d.p;
     modalResult.textContent=d.r;
+
+    const videoSource=localProjectVideos[el.dataset.project];
+    const hasLocalVideo=Boolean(videoSource);
+    const isPetFed=el.dataset.project==='petfed';
+
+    modalLocalVideoFrame.classList.toggle('show',hasLocalVideo);
+    modalLocalVideoFrame.classList.toggle('no-crop',isPetFed);
+
+    if(hasLocalVideo){
+      modalLocalVideo.muted=false;
+      modalLocalVideo.volume=1;
+      if(modalLocalVideoSource.getAttribute('src')!==videoSource){
+        modalLocalVideo.pause();
+        modalLocalVideoSource.setAttribute('src',videoSource);
+        modalLocalVideo.load();
+      }
+        modalLocalVideo.setAttribute('aria-label',el.dataset.project==='petfed'
+          ? 'Pet Fed India video'
+          : el.dataset.project==='limeroad'
+            ? 'LimeRoad Gen Z fashion video'
+            : 'Official Aftermovie, Delhi Comic Con 2022');
+      modalLocalVideo.currentTime=0;
+      playLocalProjectVideo();
+    }else{
+      modalLocalVideo.pause();
+      modalLocalVideo.currentTime=0;
+    }
 
     modalExperience.innerHTML='';
 
@@ -2933,6 +3039,11 @@ document.querySelectorAll('.work-item').forEach(el=>{
 function closeModal(){
 
   modal.classList.remove('show');
+
+  modalLocalVideo.pause();
+  modalLocalVideo.currentTime=0;
+  modalLocalVideoFrame.classList.remove('show');
+  modalLocalVideoFrame.classList.remove('no-crop');
 
   document.body.style.overflow='';
 
