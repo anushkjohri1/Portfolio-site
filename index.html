@@ -3216,8 +3216,6 @@ document.querySelectorAll('.work-item').forEach(el=>{
 
     const d=projectData[el.dataset.project];
 
-    modalVideoOpen=true;
-
     modalKicker.textContent=d.k;
     modalTitle.textContent=d.t;
     modalContext.textContent=d.c;
@@ -3227,6 +3225,7 @@ document.querySelectorAll('.work-item').forEach(el=>{
     const videoSource=localProjectVideos[el.dataset.project];
     const hasLocalVideo=Boolean(videoSource);
     const isPetFed=el.dataset.project==='petfed';
+    modalVideoOpen=hasLocalVideo;
 
     modalLocalVideoFrame.classList.toggle('show',hasLocalVideo);
     modalLocalVideoFrame.classList.toggle('no-crop',isPetFed);
@@ -3251,6 +3250,8 @@ document.querySelectorAll('.work-item').forEach(el=>{
     }else{
       modalLocalVideo.pause();
       modalLocalVideo.currentTime=0;
+      modalLocalVideoSource.removeAttribute('src');
+      modalLocalVideo.load();
     }
 
     modalExperience.innerHTML='';
