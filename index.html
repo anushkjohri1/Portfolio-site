@@ -1754,7 +1754,7 @@ footer a:hover{
 
 <section id="top" class="hero">
 
-  <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
     <source src="hero-video.mp4" type="video/mp4">
   </video>
 
@@ -1828,216 +1828,6 @@ footer a:hover{
 
 
 <!-- SECTION 01 -->
-
-<section class="section reveal">
-
-<div class="container">
-
-  <h2 class="section-title" style="margin-bottom:45px">
-    Brands I've run<br>
-    the internet for.
-  </h2>
-
-  <p class="body" style="max-width:600px">
-    The profiles are one tap away.
-  </p>
-
-  <div class="brands" style="margin-top:35px">
-
-
-    <a class="brand"
-       href="https://www.instagram.com/petfedindia/"
-       target="_blank">
-
-      <div class="brand-mark" aria-hidden="true">
-        <b>PF</b>
-      </div>
-
-      <strong>Pet Fed India</strong>
-
-      <span>@petfedindia ↗</span>
-
-    </a>
-
-
-    <a class="brand"
-       href="https://www.instagram.com/bennysbowl/"
-       target="_blank">
-
-      <div class="brand-mark" aria-hidden="true">
-        <b>BB</b>
-      </div>
-
-      <strong>Benny's Bowl</strong>
-
-      <span>@bennysbowl ↗</span>
-
-    </a>
-
-
-    <a class="brand"
-       href="https://www.instagram.com/comicconindia/"
-       target="_blank">
-
-      <div class="brand-mark" aria-hidden="true">
-        <b>CC</b>
-      </div>
-
-      <strong>Comic Con India</strong>
-
-      <span>@comicconindia ↗</span>
-
-    </a>
-
-
-    <a class="brand"
-       href="https://www.instagram.com/limeroad/"
-       target="_blank">
-
-      <div class="brand-mark" aria-hidden="true">
-        <b>LR</b>
-      </div>
-
-      <strong>LimeRoad</strong>
-
-      <span>@limeroad ↗</span>
-
-    </a>
-
-  </div>
-
-</div>
-
-</section>
-
-
-<!-- SECTION 02 -->
-
-<section id="about" class="section reveal about-section">
-
-  <video class="about-video" autoplay muted loop playsinline aria-hidden="true">
-    <source src="about-video.mp4" type="video/mp4">
-  </video>
-
-  <div class="about-video-shade"></div>
-
-<div class="container grid12">
-
-  <div>
-
-    <h2 class="section-title about-typewriter" aria-label="So, what exactly do I do?">
-      <span class="about-typewriter-line" data-text="So, what exactly"></span><br>
-      <span class="about-typewriter-line" data-text="do I do?"></span><span class="about-typewriter-cursor" aria-hidden="true"></span>
-    </h2>
-
-  </div>
-
-
-  <div class="intro-copy body">
-
-    <p>
-      <strong style="color:var(--white)">
-        Short answer:
-      </strong>
-      I make sure brands don't get ignored.
-    </p>
-
-    <p>
-      Longer answer: I lead creative and marketing for brands that live on the internet <em>and</em> in the real world, social feeds, festivals, campaigns, push notifications, the works.
-    </p>
-
-    <p>
-      Right now I run group marketing and content for Benny's Bowl, Pet Fed India and Flying Fur, leading a team of six, building campaigns that start on a mood-board and end with 23,000 people showing up at a festival gate. Before that: Comic Con India fandom, a remote content engine, and four years of e-commerce performance marketing.
-    </p>
-
-    <p>
-      The common thread? Making things people actually stop for.
-    </p>
-
-    <div style="margin-top:35px" class="label">
-      Pick a word. I've probably built a campaign around it.
-    </div>
-
-    <div class="chips">
-
-      <button class="chip creative-trigger" id="creativeTrigger" type="button" aria-haspopup="dialog" aria-controls="creativeViewer">Creative</button>
-      <button class="chip creative-trigger" id="socialTrigger" type="button" aria-haspopup="dialog" aria-controls="socialViewer">Social</button>
-      <button class="chip content-trigger" id="contentTrigger" type="button" aria-haspopup="dialog" aria-controls="contentGridViewer">Content</button>
-      <span class="chip">Brand Strategy</span>
-      <span class="chip">Culture</span>
-
-    </div>
-
-  </div>
-
-</div>
-
-</section>
-
-<div class="content-grid-viewer" id="contentGridViewer" role="dialog" aria-modal="true" aria-labelledby="contentGridTitle" aria-hidden="true">
-  <button class="creative-viewer-close" id="contentGridClose" type="button">Close ×</button>
-  <div class="content-grid-inner">
-    <div class="content-grid-heading">
-      <div>
-        <div class="label">Content archive</div>
-        <h2 id="contentGridTitle">Made to<br><span class="acid">move.</span></h2>
-      </div>
-      <p>Tap any frame to watch the Reel behind the idea.</p>
-    </div>
-    <div class="content-grid" id="contentGrid"></div>
-  </div>
-</div>
-
-<div class="creative-viewer" id="creativeViewer" role="dialog" aria-modal="true" aria-labelledby="creativeViewerTitle" aria-hidden="true">
-  <button class="creative-viewer-close" id="creativeViewerClose" type="button">Close ×</button>
-  <div class="creative-viewer-inner">
-    <div class="creative-viewer-copy">
-      <div class="label">Creative archive</div>
-      <h2 id="creativeViewerTitle">Ideas worth<br><span class="acid">stopping for.</span></h2>
-      <p>Drag the top card, or use the arrows. Every swipe brings a new piece of the work forward.</p>
-      <div class="creative-viewer-controls">
-        <button class="creative-viewer-button" id="creativePrev" type="button" aria-label="Previous creative">←</button>
-        <span class="creative-viewer-count" id="creativeCount">01 / 20</span>
-        <button class="creative-viewer-button" id="creativeNext" type="button" aria-label="Next creative">→</button>
-      </div>
-    </div>
-    <div class="creative-deck-wrap">
-      <div class="creative-deck" id="creativeDeck">
-        <button class="creative-card" type="button" aria-label="Swipe creative"><img alt="Creative work 1" draggable="false"></button>
-        <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 2" draggable="false"></button>
-        <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 3" draggable="false"></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="social-viewer" id="socialViewer" role="dialog" aria-modal="true" aria-labelledby="socialViewerTitle" aria-hidden="true">
-  <button class="creative-viewer-close" id="socialViewerClose" type="button">Close ×</button>
-  <div class="social-viewer-inner">
-    <div class="social-viewer-copy">
-      <div class="label" id="socialViewerKicker">Social archive</div>
-      <h2 id="socialViewerTitle">Pages worth<br><span class="acid">stopping for.</span></h2>
-      <div class="social-account" id="socialAccount"></div>
-      <p class="social-summary" id="socialSummary"></p>
-      <div class="social-metrics" id="socialMetrics"></div>
-      <div class="creative-viewer-controls">
-        <button class="creative-viewer-button" id="socialPrev" type="button" aria-label="Previous social account">←</button>
-        <span class="creative-viewer-count" id="socialCount">01 / 06</span>
-        <button class="creative-viewer-button" id="socialNext" type="button" aria-label="Next social account">→</button>
-      </div>
-    </div>
-    <div class="social-deck-wrap">
-      <div class="social-deck" id="socialDeck">
-        <button class="social-card" type="button" aria-label="Swipe social account"><img alt="Social account work 1" draggable="false"></button>
-        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 2" draggable="false"></button>
-        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 3" draggable="false"></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- SECTION 03 -->
 
 <section id="work" class="section reveal">
 
@@ -2219,6 +2009,216 @@ footer a:hover{
     </button>
 
   </article>
+
+</div>
+
+</section>
+
+
+<!-- SECTION 02 -->
+
+<section id="about" class="section reveal about-section">
+
+  <video class="about-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="about-video.mp4" type="video/mp4">
+  </video>
+
+  <div class="about-video-shade"></div>
+
+<div class="container grid12">
+
+  <div>
+
+    <h2 class="section-title about-typewriter" aria-label="So, what exactly do I do?">
+      <span class="about-typewriter-line" data-text="So, what exactly"></span><br>
+      <span class="about-typewriter-line" data-text="do I do?"></span><span class="about-typewriter-cursor" aria-hidden="true"></span>
+    </h2>
+
+  </div>
+
+
+  <div class="intro-copy body">
+
+    <p>
+      <strong style="color:var(--white)">
+        Short answer:
+      </strong>
+      I make sure brands don't get ignored.
+    </p>
+
+    <p>
+      Longer answer: I lead creative and marketing for brands that live on the internet <em>and</em> in the real world, social feeds, festivals, campaigns, push notifications, the works.
+    </p>
+
+    <p>
+      Right now I run group marketing and content for Benny's Bowl, Pet Fed India and Flying Fur, leading a team of six, building campaigns that start on a mood-board and end with 23,000 people showing up at a festival gate. Before that: Comic Con India fandom, a remote content engine, and four years of e-commerce performance marketing.
+    </p>
+
+    <p>
+      The common thread? Making things people actually stop for.
+    </p>
+
+    <div style="margin-top:35px" class="label">
+      Pick a word. I've probably built a campaign around it.
+    </div>
+
+    <div class="chips">
+
+      <button class="chip creative-trigger" id="creativeTrigger" type="button" aria-haspopup="dialog" aria-controls="creativeViewer">Creative</button>
+      <button class="chip creative-trigger" id="socialTrigger" type="button" aria-haspopup="dialog" aria-controls="socialViewer">Social</button>
+      <button class="chip content-trigger" id="contentTrigger" type="button" aria-haspopup="dialog" aria-controls="contentGridViewer">Content</button>
+      <span class="chip">Brand Strategy</span>
+      <span class="chip">Culture</span>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<div class="content-grid-viewer" id="contentGridViewer" role="dialog" aria-modal="true" aria-labelledby="contentGridTitle" aria-hidden="true">
+  <button class="creative-viewer-close" id="contentGridClose" type="button">Close ×</button>
+  <div class="content-grid-inner">
+    <div class="content-grid-heading">
+      <div>
+        <div class="label">Content archive</div>
+        <h2 id="contentGridTitle">Made to<br><span class="acid">move.</span></h2>
+      </div>
+      <p>Tap any frame to watch the Reel behind the idea.</p>
+    </div>
+    <div class="content-grid" id="contentGrid"></div>
+  </div>
+</div>
+
+<div class="creative-viewer" id="creativeViewer" role="dialog" aria-modal="true" aria-labelledby="creativeViewerTitle" aria-hidden="true">
+  <button class="creative-viewer-close" id="creativeViewerClose" type="button">Close ×</button>
+  <div class="creative-viewer-inner">
+    <div class="creative-viewer-copy">
+      <div class="label">Creative archive</div>
+      <h2 id="creativeViewerTitle">Ideas worth<br><span class="acid">stopping for.</span></h2>
+      <p>Drag the top card, or use the arrows. Every swipe brings a new piece of the work forward.</p>
+      <div class="creative-viewer-controls">
+        <button class="creative-viewer-button" id="creativePrev" type="button" aria-label="Previous creative">←</button>
+        <span class="creative-viewer-count" id="creativeCount">01 / 20</span>
+        <button class="creative-viewer-button" id="creativeNext" type="button" aria-label="Next creative">→</button>
+      </div>
+    </div>
+    <div class="creative-deck-wrap">
+      <div class="creative-deck" id="creativeDeck">
+        <button class="creative-card" type="button" aria-label="Swipe creative"><img alt="Creative work 1" draggable="false"></button>
+        <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 2" draggable="false"></button>
+        <button class="creative-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Creative work 3" draggable="false"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="social-viewer" id="socialViewer" role="dialog" aria-modal="true" aria-labelledby="socialViewerTitle" aria-hidden="true">
+  <button class="creative-viewer-close" id="socialViewerClose" type="button">Close ×</button>
+  <div class="social-viewer-inner">
+    <div class="social-viewer-copy">
+      <div class="label" id="socialViewerKicker">Social archive</div>
+      <h2 id="socialViewerTitle">Pages worth<br><span class="acid">stopping for.</span></h2>
+      <div class="social-account" id="socialAccount"></div>
+      <p class="social-summary" id="socialSummary"></p>
+      <div class="social-metrics" id="socialMetrics"></div>
+      <div class="creative-viewer-controls">
+        <button class="creative-viewer-button" id="socialPrev" type="button" aria-label="Previous social account">←</button>
+        <span class="creative-viewer-count" id="socialCount">01 / 06</span>
+        <button class="creative-viewer-button" id="socialNext" type="button" aria-label="Next social account">→</button>
+      </div>
+    </div>
+    <div class="social-deck-wrap">
+      <div class="social-deck" id="socialDeck">
+        <button class="social-card" type="button" aria-label="Swipe social account"><img alt="Social account work 1" draggable="false"></button>
+        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 2" draggable="false"></button>
+        <button class="social-card" type="button" tabindex="-1" aria-hidden="true"><img alt="Social account work 3" draggable="false"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SECTION 03 -->
+
+<section class="section reveal">
+
+<div class="container">
+
+  <h2 class="section-title" style="margin-bottom:45px">
+    Brands I've run<br>
+    the internet for.
+  </h2>
+
+  <p class="body" style="max-width:600px">
+    The profiles are one tap away.
+  </p>
+
+  <div class="brands" style="margin-top:35px">
+
+
+    <a class="brand"
+       href="https://www.instagram.com/petfedindia/"
+       target="_blank">
+
+      <div class="brand-mark" aria-hidden="true">
+        <b>PF</b>
+      </div>
+
+      <strong>Pet Fed India</strong>
+
+      <span>@petfedindia ↗</span>
+
+    </a>
+
+
+    <a class="brand"
+       href="https://www.instagram.com/bennysbowl/"
+       target="_blank">
+
+      <div class="brand-mark" aria-hidden="true">
+        <b>BB</b>
+      </div>
+
+      <strong>Benny's Bowl</strong>
+
+      <span>@bennysbowl ↗</span>
+
+    </a>
+
+
+    <a class="brand"
+       href="https://www.instagram.com/comicconindia/"
+       target="_blank">
+
+      <div class="brand-mark" aria-hidden="true">
+        <b>CC</b>
+      </div>
+
+      <strong>Comic Con India</strong>
+
+      <span>@comicconindia ↗</span>
+
+    </a>
+
+
+    <a class="brand"
+       href="https://www.instagram.com/limeroad/"
+       target="_blank">
+
+      <div class="brand-mark" aria-hidden="true">
+        <b>LR</b>
+      </div>
+
+      <strong>LimeRoad</strong>
+
+      <span>@limeroad ↗</span>
+
+    </a>
+
+  </div>
 
 </div>
 
@@ -2697,9 +2697,10 @@ footer a:hover{
         class="modal-local-video"
         id="modalLocalVideo"
         autoplay
+        muted
         loop
         playsinline
-        preload="metadata"
+        preload="auto"
         aria-label="Official Aftermovie, Delhi Comic Con 2022">
         <source id="modalLocalVideoSource" src="Official%20Aftermovie%20Delhi%20Comic%20Con%202022%20-%20Comic%20Con%20India%20(1080p,%20h264).mp4" type="video/mp4">
       </video>
@@ -2847,10 +2848,16 @@ footer a:hover{
     ['Screenshot From 2026-09-13 15-51-52.png','https://www.instagram.com/reel/C9SZROfS3l3/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
     ['Screenshot From 2026-09-13 15-53-09.png','https://www.instagram.com/reel/C6tSis_JEFW/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
     ['Screenshot From 2026-09-13 15-53-44.png','https://www.instagram.com/reel/DATWcCHs0fb/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
-    ['Screenshot From 2026-09-13 15-56-24.png','https://www.instagram.com/reel/DVv3QaFASs7/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==']
+    ['Screenshot From 2026-09-13 15-56-24.png','https://www.instagram.com/reel/DVv3QaFASs7/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-54-45.png','https://www.instagram.com/reel/DN0U_Vf2NPR/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-55-32.png','https://www.instagram.com/reel/DN28q-UXmtQ/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-57-18.png','https://www.instagram.com/reel/DN5hdrND9B-/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-57-25.png','https://www.instagram.com/reel/DN8GP5EDx-S/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-57-49.png','https://www.instagram.com/reel/DPK8-VYkzjP/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Social/Screenshot From 2026-09-13 16-59-01.png','https://www.instagram.com/reel/DPd8UiHj0L-/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==']
   ];
 
-  grid.innerHTML=posts.map((post,index)=>'<a class="content-tile" href="'+post[1]+'" target="_blank" rel="noopener noreferrer" aria-label="Open content Reel '+(index+1)+'"><img src="Assets/'+post[0]+'" alt="Content work '+(index+1)+'" loading="lazy"><span class="content-play" aria-hidden="true"></span></a>').join('');
+  grid.innerHTML=posts.map((post,index)=>'<a class="content-tile" href="'+post[1]+'" target="_blank" rel="noopener noreferrer" aria-label="Open content Reel '+(index+1)+'"><img src="'+(post[0].includes('/')?post[0]:'Assets/'+post[0])+'" alt="Content work '+(index+1)+'" loading="lazy"><span class="content-play" aria-hidden="true"></span></a>').join('');
 
   let previousOverflow='';
   function open(){
@@ -3274,21 +3281,65 @@ const localProjectVideos={
   limeroad:'vidssave.com%20Just%20Some%20Gen%20Z%20Fits%20Being%20the%20Moment%20720P.mp4'
 };
 
+function safePlayVideo(video){
+  if(!video || typeof video.play!=='function') return;
+
+  video.muted=true;
+  video.volume=0;
+  video.play().catch(()=>{});
+}
+
 function playLocalProjectVideo(){
-  if(!modalVideoOpen)return;
-  modalLocalVideo.muted=false;
-  modalLocalVideo.volume=1;
-  modalLocalVideo.play().catch(()=>{});
+  if(!modalVideoOpen) return;
+  safePlayVideo(modalLocalVideo);
 }
 
 modalLocalVideo.addEventListener('canplay',playLocalProjectVideo);
+
+function loadModalVideo(projectKey){
+  const videoSource=localProjectVideos[projectKey];
+  const hasLocalVideo=Boolean(videoSource);
+  const isPetFed=projectKey==='petfed';
+
+  modalVideoOpen=hasLocalVideo;
+  modalLocalVideoFrame.classList.toggle('show',hasLocalVideo);
+  modalLocalVideoFrame.classList.toggle('no-crop',isPetFed);
+
+  if(!hasLocalVideo){
+    modalLocalVideo.pause();
+    modalLocalVideo.currentTime=0;
+    modalLocalVideoSource.removeAttribute('src');
+    modalLocalVideo.load();
+    return;
+  }
+
+  if(modalLocalVideoSource.getAttribute('src')!==videoSource){
+    modalLocalVideo.pause();
+    modalLocalVideoSource.setAttribute('src',videoSource);
+    modalLocalVideo.load();
+  }
+
+  modalLocalVideo.setAttribute('aria-label',projectKey==='petfed'
+    ? 'Pet Fed India video'
+    : projectKey==='limeroad'
+      ? 'LimeRoad Gen Z fashion video'
+      : 'Official Aftermovie, Delhi Comic Con 2022');
+
+  if(modalLocalVideo.readyState>=3){
+    modalLocalVideo.currentTime=0;
+    safePlayVideo(modalLocalVideo);
+  }
+}
 
 
 document.querySelectorAll('.work-item').forEach(el=>{
 
   el.addEventListener('click',()=>{
 
-    const d=projectData[el.dataset.project];
+    const projectKey=el.dataset.project;
+    const d=projectData[projectKey];
+
+    if(!d) return;
 
     modalKicker.textContent=d.k;
     modalTitle.textContent=d.t;
@@ -3296,71 +3347,35 @@ document.querySelectorAll('.work-item').forEach(el=>{
     modalPlay.textContent=d.p;
     modalResult.textContent=d.r;
 
-    const videoSource=localProjectVideos[el.dataset.project];
-    const hasLocalVideo=Boolean(videoSource);
-    const isPetFed=el.dataset.project==='petfed';
-    modalVideoOpen=hasLocalVideo;
-
-    modalLocalVideoFrame.classList.toggle('show',hasLocalVideo);
-    modalLocalVideoFrame.classList.toggle('no-crop',isPetFed);
-
-    if(hasLocalVideo){
-      modalLocalVideo.muted=false;
-      modalLocalVideo.volume=1;
-      if(modalLocalVideoSource.getAttribute('src')!==videoSource){
-        modalLocalVideo.pause();
-        modalLocalVideoSource.setAttribute('src',videoSource);
-        modalLocalVideo.load();
-      }
-        modalLocalVideo.setAttribute('aria-label',el.dataset.project==='petfed'
-          ? 'Pet Fed India video'
-          : el.dataset.project==='limeroad'
-            ? 'LimeRoad Gen Z fashion video'
-            : 'Official Aftermovie, Delhi Comic Con 2022');
-          if(modalLocalVideo.readyState>=3){
-            modalLocalVideo.currentTime=0;
-            playLocalProjectVideo();
-          }
-    }else{
-      modalLocalVideo.pause();
-      modalLocalVideo.currentTime=0;
-      modalLocalVideoSource.removeAttribute('src');
-      modalLocalVideo.load();
-    }
+    loadModalVideo(projectKey);
 
     modalExperience.innerHTML='';
 
     d.experience.forEach(item=>{
-
       const li=document.createElement('li');
-
       li.textContent=item;
-
       modalExperience.appendChild(li);
-
     });
 
     modal.classList.add('show');
-
     document.body.style.overflow='hidden';
-
   });
 
 });
 
 
 function closeModal(){
-
   modalVideoOpen=false;
   modal.classList.remove('show');
 
-  modalLocalVideo.pause();
-  modalLocalVideo.currentTime=0;
+  if(modalLocalVideo && typeof modalLocalVideo.pause==='function'){
+    modalLocalVideo.pause();
+    modalLocalVideo.currentTime=0;
+  }
+
   modalLocalVideoFrame.classList.remove('show');
   modalLocalVideoFrame.classList.remove('no-crop');
-
   document.body.style.overflow='';
-
 }
 
 
@@ -3369,20 +3384,16 @@ document.getElementById('closeModal')
 
 
 modal.addEventListener('click',e=>{
-
   if(e.target===modal){
     closeModal();
   }
-
 });
 
 
 document.addEventListener('keydown',e=>{
-
   if(e.key==='Escape'){
     closeModal();
   }
-
 });
 
 
@@ -4047,7 +4058,9 @@ receiptsObserver.observe(numbersSection);
 const heroVideo=
   document.querySelector('.hero-video');
 
-heroVideo.play().catch(()=>{});
+if(heroVideo && typeof heroVideo.play==='function'){
+  heroVideo.play().catch(()=>{});
+}
 
 
 /* CUSTOM CURSOR */
