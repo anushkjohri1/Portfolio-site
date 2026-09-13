@@ -3281,17 +3281,17 @@ const localProjectVideos={
   limeroad:'vidssave.com%20Just%20Some%20Gen%20Z%20Fits%20Being%20the%20Moment%20720P.mp4'
 };
 
-function safePlayVideo(video){
+function safePlayVideo(video, muted=false){
   if(!video || typeof video.play!=='function') return;
 
-  video.muted=true;
-  video.volume=0;
+  video.muted=muted;
+  video.volume=muted ? 0 : 1;
   video.play().catch(()=>{});
 }
 
 function playLocalProjectVideo(){
   if(!modalVideoOpen) return;
-  safePlayVideo(modalLocalVideo);
+  safePlayVideo(modalLocalVideo, false);
 }
 
 modalLocalVideo.addEventListener('canplay',playLocalProjectVideo);
@@ -3326,8 +3326,10 @@ function loadModalVideo(projectKey){
       : 'Official Aftermovie, Delhi Comic Con 2022');
 
   if(modalLocalVideo.readyState>=3){
+    modalLocalVideo.muted=false;
+    modalLocalVideo.volume=1;
     modalLocalVideo.currentTime=0;
-    safePlayVideo(modalLocalVideo);
+    safePlayVideo(modalLocalVideo, false);
   }
 }
 
@@ -3348,6 +3350,9 @@ document.querySelectorAll('.work-item').forEach(el=>{
     modalResult.textContent=d.r;
 
     loadModalVideo(projectKey);
+    modalLocalVideo.muted=false;
+    modalLocalVideo.volume=1;
+    safePlayVideo(modalLocalVideo, false);
 
     modalExperience.innerHTML='';
 
@@ -3653,404 +3658,6 @@ const receiptsObserver=
 
 
 receiptsObserver.observe(numbersSection);
-
-
-/* APPLE-INSPIRED SCROLL MOTION */
-
-(function(){
-
-  const reduceMotion=
-    window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-  const hero=
-    document.querySelector('.hero');
-
-  const heroVideo=
-    document.querySelector('.hero-video');
-
-  const heroShade=
-    document.querySelector('.hero-video-shade');
-
-  const heroBg=
-    document.querySelector('.hero-bg');
-
-  const heroContainer=
-    hero?.querySelector('.container');
-
-  const heroTitle=
-    hero?.querySelector('h1');
-
-  const heroCopy=
-    hero?.querySelector('.hero-copy');
-
-  const workItems=[
-    ...document.querySelectorAll('.work-item')
-  ];
-
-  const brands=[
-    ...document.querySelectorAll('.brand')
-  ];
-
-  const tools=[
-    ...document.querySelectorAll('.tool')
-  ];
-
-  const stats=[
-    ...document.querySelectorAll('.stat')
-  ];
-
-  const beliefs=[
-    ...document.querySelectorAll('.belief')
-  ];
-
-
-  if(!reduceMotion){
-
-    let ticking=false;
-
-    let lastY=window.scrollY;
-
-
-    function clamp(n,min,max){
-      return Math.max(min,Math.min(max,n));
-    }
-
-    function ease(n){
-      return n*n*(3-2*n);
-    }
-
-
-    function updateScroll(){
-
-      ticking=false;
-
-      const y=window.scrollY;
-
-      const heroH=
-        Math.max(
-          hero?.offsetHeight||window.innerHeight,
-          1
-        );
-
-      const p=
-        clamp(
-          y/(heroH*.9),
-          0,
-          1
-        );
-
-      const e=ease(p);
-
-      const direction=
-        y>lastY?1:-1;
-
-      lastY=y;
-
-
-      if(hero){
-
-        hero.style.transform=
-          `perspective(1400px) rotateX(${e*5.5}deg) scale(${1-e*.035})`;
-
-        hero.style.setProperty(
-          '--scroll-progress',
-          p.toFixed(3)
-        );
-
-      }
-
-
-      if(heroVideo){
-
-        heroVideo.style.transform=
-          `scale(${1+e*.13}) translateY(${e*-2.5}%)`;
-
-      }
-
-
-      if(heroShade){
-
-        heroShade.style.transform=
-          `scale(${1+e*.06})`;
-
-        heroShade.style.opacity=
-          String(.88+e*.12);
-
-      }
-
-
-      if(heroBg){
-
-        heroBg.style.transform=
-          `translate3d(${e*2}%,${e*5}%,0) scale(${1+e*.08}) rotate(${e*2}deg)`;
-
-      }
-
-
-      if(heroContainer){
-
-        heroContainer.style.transform=
-          `translate3d(0,${e*-9}vh,0)`;
-
-      }
-
-
-      if(heroTitle){
-
-        heroTitle.style.transform=
-          `translate3d(${e*-1.5}vw,${e*-4.5}vh,0) scale(${1-e*.055}) rotateX(${e*2}deg)`;
-
-        heroTitle.style.opacity=
-          String(1-e*.18);
-
-      }
-
-
-      if(heroCopy){
-
-        heroCopy.style.transform=
-          `translate3d(${e*1.2}vw,${e*-2.5}vh,0)`;
-
-        heroCopy.style.opacity=
-          String(1-e*.32);
-
-      }
-
-
-      // Subtle section drift: elements move at slightly different rates,
-      // creating depth without turning the page into a theme-park ride.
-
-      [...workItems,...tools,...stats,...beliefs]
-        .forEach((el,i)=>{
-
-          const r=
-            el.getBoundingClientRect();
-
-          const center=
-            r.top+r.height/2;
-
-          const distance=
-            (center-window.innerHeight/2)/
-            window.innerHeight;
-
-          const amount=
-            clamp(
-              distance,
-              -1.2,
-              1.2
-            );
-
-
-          if(el.matches('.work-item')){
-
-            el.style.setProperty(
-              '--scroll-y',
-              `${amount*-3.5}px`
-            );
-
-            el.style.transform=
-              `translate3d(0,${amount*-3.5}px,0)`;
-
-          }else if(el.matches('.tool')){
-
-            el.style.transform=
-              `translate3d(0,${amount*-2}px,0)`;
-
-          }else if(el.matches('.stat')){
-
-            el.style.transform=
-              `translate3d(0,${amount*-2.5}px,0)`;
-
-          }
-
-        });
-
-    }
-
-
-    function requestScroll(){
-
-      if(!ticking){
-
-        ticking=true;
-
-        requestAnimationFrame(updateScroll);
-
-      }
-
-    }
-
-    window.addEventListener(
-      'scroll',
-      requestScroll,
-      {passive:true}
-    );
-
-    window.addEventListener(
-      'resize',
-      requestScroll,
-      {passive:true}
-    );
-
-    requestScroll();
-
-
-    // Magnetic 3D brand cards: the card follows the pointer, but only a little.
-
-    brands.forEach(card=>{
-
-      card.addEventListener('pointermove',e=>{
-
-        const r=
-          card.getBoundingClientRect();
-
-        const x=
-          (e.clientX-r.left)/
-          r.width-.5;
-
-        const y=
-          (e.clientY-r.top)/
-          r.height-.5;
-
-        card.style.transform=
-          `perspective(800px) rotateX(${y*-5}deg) rotateY(${x*6}deg) translate3d(${x*5}px,${y*5}px,0)`;
-
-        const mark=
-          card.querySelector('.brand-mark');
-
-        if(mark)
-
-          mark.style.transform=
-            `translate3d(${x*9}px,${y*9}px,0) rotate(${x*-8}deg) scale(1.06)`;
-
-      });
-
-
-      card.addEventListener('pointerleave',()=>{
-
-        card.style.transform='';
-
-        const mark=
-          card.querySelector('.brand-mark');
-
-        if(mark)
-          mark.style.transform='';
-
-      });
-
-    });
-
-
-    // Project rows get a stronger physical tilt on desktop.
-
-    workItems.forEach(row=>{
-
-      row.addEventListener('pointermove',e=>{
-
-        if(window.innerWidth<=800)return;
-
-        const r=
-          row.getBoundingClientRect();
-
-        const x=
-          (e.clientX-r.left)/
-          r.width-.5;
-
-        const y=
-          (e.clientY-r.top)/
-          r.height-.5;
-
-        row.style.transform=
-          `perspective(1100px) rotateX(${y*-1.8}deg) rotateY(${x*2.5}deg) translate3d(${x*4}px,${y*2}px,0)`;
-
-      });
-
-      row.addEventListener(
-        'pointerleave',
-        ()=>{
-          row.style.transform='';
-        }
-      );
-
-    });
-
-
-    // Cursor has a little inertia instead of teleporting.
-
-    const cursor=
-      document.getElementById('cursor');
-
-    if(cursor && window.innerWidth>800){
-
-      let mx=0,
-          my=0,
-          cx=0,
-          cy=0;
-
-      window.addEventListener(
-        'pointermove',
-        e=>{
-          mx=e.clientX;
-          my=e.clientY;
-        },
-        {passive:true}
-      );
-
-
-      function cursorLoop(){
-
-        cx+=(mx-cx)*.22;
-        cy+=(my-cy)*.22;
-
-        cursor.style.left=
-          cx+'px';
-
-        cursor.style.top=
-          cy+'px';
-
-        requestAnimationFrame(cursorLoop);
-
-      }
-
-      cursorLoop();
-
-    }
-
-
-    // Give the marquee a tiny speed change while the user scrolls.
-
-    const track=
-      document.querySelector('.track');
-
-    let scrollTimer;
-
-    if(track){
-
-      window.addEventListener(
-        'scroll',
-        ()=>{
-
-          track.style.animationDuration='22s';
-
-          clearTimeout(scrollTimer);
-
-          scrollTimer=
-            setTimeout(
-              ()=>track.style.animationDuration='38s',
-              180
-            );
-
-        },
-        {passive:true}
-      );
-
-    }
-
-  }
-
-})();
 
 
 /* HERO VIDEO */
