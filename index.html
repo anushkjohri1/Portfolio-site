@@ -3192,6 +3192,8 @@ const modalLocalVideoFrame=
 const modalLocalVideoSource=
   document.getElementById('modalLocalVideoSource');
 
+let modalVideoOpen=false;
+
 const localProjectVideos={
   comiccon:'Official%20Aftermovie%20Delhi%20Comic%20Con%202022%20-%20Comic%20Con%20India%20(1080p,%20h264).mp4',
   petfed:'YTB_1789210380169.mp4',
@@ -3199,6 +3201,7 @@ const localProjectVideos={
 };
 
 function playLocalProjectVideo(){
+  if(!modalVideoOpen)return;
   modalLocalVideo.muted=false;
   modalLocalVideo.volume=1;
   modalLocalVideo.play().catch(()=>{});
@@ -3212,6 +3215,8 @@ document.querySelectorAll('.work-item').forEach(el=>{
   el.addEventListener('click',()=>{
 
     const d=projectData[el.dataset.project];
+
+    modalVideoOpen=true;
 
     modalKicker.textContent=d.k;
     modalTitle.textContent=d.t;
@@ -3271,6 +3276,7 @@ document.querySelectorAll('.work-item').forEach(el=>{
 
 function closeModal(){
 
+  modalVideoOpen=false;
   modal.classList.remove('show');
 
   modalLocalVideo.pause();
