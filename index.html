@@ -1038,6 +1038,31 @@ footer a:hover{
   border-color:var(--white);
 }
 
+.content-trigger{cursor:none}
+.content-grid-viewer{position:fixed;inset:0;z-index:162;overflow:auto;padding:28px;background:rgba(42,0,9,.97);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.content-grid-viewer.show{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
+.content-grid-inner{width:min(100%,1180px);margin:0 auto;padding:52px 0 60px}
+.content-grid-heading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:28px}
+.content-grid-heading h2{margin:12px 0 0;font:900 clamp(42px,6vw,78px)/.86 "Cabinet Grotesk";letter-spacing:-.05em;text-transform:uppercase}
+.content-grid-heading p{max-width:220px;margin:0;color:var(--fog);font-size:13px;line-height:1.5}
+.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.content-tile{position:relative;display:block;overflow:hidden;aspect-ratio:285/446;background:var(--surface);border:1px solid rgba(242,241,237,.24);padding:0;text-align:left}
+.content-tile img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .35s ease}
+.content-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(42,0,9,.6));pointer-events:none}
+.content-tile:hover img,.content-tile:focus-visible img{transform:scale(1.06);filter:saturate(1.12)}
+.content-tile:focus-visible{outline:2px solid var(--white);outline-offset:4px}
+.content-play{position:absolute;z-index:1;left:50%;top:50%;display:grid;place-items:center;width:54px;height:54px;border:1px solid rgba(242,241,237,.8);border-radius:50%;background:rgba(42,0,9,.54);color:var(--white);transform:translate(-50%,-50%);transition:transform .3s ease,background .3s ease}
+.content-tile:hover .content-play,.content-tile:focus-visible .content-play{background:var(--white);color:var(--ink);transform:translate(-50%,-50%) scale(1.1)}
+.content-play::after{content:"";margin-left:3px;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:10px solid currentColor}
+@media(max-width:800px){
+  .content-grid-viewer{padding:18px 14px}
+  .content-grid-inner{padding-top:48px}
+  .content-grid-heading{display:block}
+  .content-grid-heading p{margin-top:16px}
+  .content-grid{gap:5px}
+  .content-play{width:42px;height:42px}
+}
+
 .creative-trigger{cursor:none}
 .creative-viewer{position:fixed;inset:0;z-index:160;display:grid;place-items:center;padding:28px;background:rgba(42,0,9,.94);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
 .creative-viewer.show{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
@@ -1937,7 +1962,7 @@ footer a:hover{
 
       <button class="chip creative-trigger" id="creativeTrigger" type="button" aria-haspopup="dialog" aria-controls="creativeViewer">Creative</button>
       <button class="chip creative-trigger" id="socialTrigger" type="button" aria-haspopup="dialog" aria-controls="socialViewer">Social</button>
-      <span class="chip">Content</span>
+      <button class="chip content-trigger" id="contentTrigger" type="button" aria-haspopup="dialog" aria-controls="contentGridViewer">Content</button>
       <span class="chip">Brand Strategy</span>
       <span class="chip">Culture</span>
 
@@ -1948,6 +1973,20 @@ footer a:hover{
 </div>
 
 </section>
+
+<div class="content-grid-viewer" id="contentGridViewer" role="dialog" aria-modal="true" aria-labelledby="contentGridTitle" aria-hidden="true">
+  <button class="creative-viewer-close" id="contentGridClose" type="button">Close ×</button>
+  <div class="content-grid-inner">
+    <div class="content-grid-heading">
+      <div>
+        <div class="label">Content archive</div>
+        <h2 id="contentGridTitle">Made to<br><span class="acid">move.</span></h2>
+      </div>
+      <p>Tap any frame to watch the Reel behind the idea.</p>
+    </div>
+    <div class="content-grid" id="contentGrid"></div>
+  </div>
+</div>
 
 <div class="creative-viewer" id="creativeViewer" role="dialog" aria-modal="true" aria-labelledby="creativeViewerTitle" aria-hidden="true">
   <button class="creative-viewer-close" id="creativeViewerClose" type="button">Close ×</button>
@@ -2723,15 +2762,6 @@ footer a:hover{
 
 <script>
 
-const workSection=document.getElementById('work');
-const brandsSection=document.querySelector('.brands')?.closest('section');
-const nextSection=workSection?.nextElementSibling;
-
-if(workSection && brandsSection && nextSection){
-  brandsSection.parentNode.insertBefore(workSection,brandsSection);
-  brandsSection.parentNode.insertBefore(brandsSection,nextSection);
-}
-
 (function(){
   const heading=document.querySelector('.about-typewriter');
   if(!heading) return;
@@ -2798,6 +2828,50 @@ if(workSection && brandsSection && nextSection){
 
 })();
 
+
+/* CONTENT GRID */
+
+(function(){
+  const trigger=document.getElementById('contentTrigger');
+  const viewer=document.getElementById('contentGridViewer');
+  const close=document.getElementById('contentGridClose');
+  const grid=document.getElementById('contentGrid');
+  if(!trigger||!viewer||!close||!grid)return;
+
+  const posts=[
+    ['Screenshot From 2026-09-13 15-47-06.png','https://www.instagram.com/reel/DTjz7FXAcVx/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-48-53.png','https://www.instagram.com/reel/DUYFwQaARPO/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-49-28.png','https://www.instagram.com/reel/DPk6k32CUSy/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-50-15.png','https://www.instagram.com/reel/DC9L04sStSb/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-51-03.png','https://www.instagram.com/reel/DDbdXciSEBN/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-51-52.png','https://www.instagram.com/reel/C9SZROfS3l3/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-53-09.png','https://www.instagram.com/reel/C6tSis_JEFW/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-53-44.png','https://www.instagram.com/reel/DATWcCHs0fb/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=='],
+    ['Screenshot From 2026-09-13 15-56-24.png','https://www.instagram.com/reel/DVv3QaFASs7/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==']
+  ];
+
+  grid.innerHTML=posts.map((post,index)=>'<a class="content-tile" href="'+post[1]+'" target="_blank" rel="noopener noreferrer" aria-label="Open content Reel '+(index+1)+'"><img src="Assets/'+post[0]+'" alt="Content work '+(index+1)+'" loading="lazy"><span class="content-play" aria-hidden="true"></span></a>').join('');
+
+  let previousOverflow='';
+  function open(){
+    viewer.classList.add('show');
+    viewer.setAttribute('aria-hidden','false');
+    previousOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    close.focus();
+  }
+  function shut(){
+    viewer.classList.remove('show');
+    viewer.setAttribute('aria-hidden','true');
+    document.body.style.overflow=previousOverflow;
+    trigger.focus();
+  }
+  trigger.addEventListener('click',open);
+  close.addEventListener('click',shut);
+  document.addEventListener('keydown',event=>{
+    if(viewer.classList.contains('show')&&event.key==='Escape')shut();
+  });
+})();
 
 /* PROJECT DATA */
 
@@ -3981,33 +4055,35 @@ heroVideo.play().catch(()=>{});
 const cursor=
   document.getElementById('cursor');
 
+if(cursor){
 
-window.addEventListener('pointermove',e=>{
+  window.addEventListener('pointermove',e=>{
 
-  cursor.style.left=
-    e.clientX+'px';
+    cursor.style.left=
+      e.clientX+'px';
 
-  cursor.style.top=
-    e.clientY+'px';
-
-});
-
-
-document
-  .querySelectorAll('a,button,.work-item')
-  .forEach(el=>{
-
-    el.addEventListener(
-      'mouseenter',
-      ()=>cursor.classList.add('big')
-    );
-
-    el.addEventListener(
-      'mouseleave',
-      ()=>cursor.classList.remove('big')
-    );
+    cursor.style.top=
+      e.clientY+'px';
 
   });
+
+  document
+    .querySelectorAll('a,button,.work-item')
+    .forEach(el=>{
+
+      el.addEventListener(
+        'mouseenter',
+        ()=>cursor.classList.add('big')
+      );
+
+      el.addEventListener(
+        'mouseleave',
+        ()=>cursor.classList.remove('big')
+      );
+
+    });
+
+}
 
 
 /* INTERACTION POLISH */
